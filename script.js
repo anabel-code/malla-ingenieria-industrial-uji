@@ -63,9 +63,6 @@ function render() {
     card.className = "card";
     card.innerHTML = `<strong>${subject.code}</strong><br>${subject.name}`;
 }
-    function saveProgress() {
-  localStorage.setItem("approvedSubjects", JSON.stringify([...approved]));
-}
     if (approved.has(subject.code)) {
       card.classList.add("approved");
     } else if (!isUnlocked(subject)) {
@@ -82,9 +79,4 @@ function render() {
 }
 
 render();
-function clearProgress() {
-  localStorage.removeItem("approvedSubjects");
-  approved = new Set();
-  render();
-}
- 
+
