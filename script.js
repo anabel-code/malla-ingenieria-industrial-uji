@@ -88,3 +88,4 @@ card.addEventListener("click", () => {
   saveProgress();
   render();
 });
+ 
