@@ -62,7 +62,10 @@ function render() {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `<strong>${subject.code}</strong><br>${subject.name}`;
-    
+}
+    function saveProgress() {
+  localStorage.setItem("approvedSubjects", JSON.stringify([...approved]));
+}
     if (approved.has(subject.code)) {
       card.classList.add("approved");
     } else if (!isUnlocked(subject)) {
@@ -79,13 +82,9 @@ function render() {
 }
 
 render();
-card.addEventListener("click", () => {
-  if (approved.has(subject.code)) {
-    approved.delete(subject.code); // ❌ Si ya estaba, se desmarca
-  } else {
-    approved.add(subject.code); // ✅ Si no estaba, se marca
-  }
-  saveProgress();
+function clearProgress() {
+  localStorage.removeItem("approvedSubjects");
+  approved = new Set();
   render();
-});
+}
  
