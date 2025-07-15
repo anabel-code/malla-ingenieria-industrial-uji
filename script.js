@@ -99,9 +99,16 @@ let approved = new Set(JSON.parse(localStorage.getItem("approvedSubjects") || "[
 const container = document.getElementById("grid");
 
 function isUnlocked(subject) {
+  // Las de primer curso siempre están desbloqueadas
   if (subject.year === 1) return true;
-  return subjects.some(s => s.unlocks.includes(subject.code) && approved.has(s.code));
+
+  // Busca qué asignaturas la desbloquean
+  const unlockers = subjects.filter(s => s.unlocks.includes(subject.code));
+
+  // Solo se desbloquea si al menos una de esas está aprobada
+  return unlockers.some(s => approved.has(s.code));
 }
+
 
 function saveProgress() {
   localStorage.setItem("approvedSubjects", JSON.stringify([...approved]));
